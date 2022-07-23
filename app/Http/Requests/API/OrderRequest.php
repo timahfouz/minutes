@@ -24,7 +24,8 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'cart_id' => 'required|exists:carts,id'
+            'cart_id' => 'required|exists:carts,id',
+            'coupon' => 'nullable|exists:coupons,code',
         ];
     }
 }

@@ -43,6 +43,8 @@ class AuthController extends InitController
                 $data['image_id'] = $media->id;
             }
 
+            $data['activation_code'] = generateCode();
+
             $user = $this->pipeline->setModel('User')->create($data);
 
             $user->access_token = auth()->guard('api')->tokenById($user->id);
@@ -59,6 +61,20 @@ class AuthController extends InitController
         return jsonResponse(201, 'done.', $data);
     }
 
+    public function activate(Request $request)
+    {
+        $data = $request->only(['phone', 'activation_code']);
+
+        $user = $this->pipeline->setModel('User')->where($data)->first();
+        
+        if (!$user) {
+            return jsonResponse(404, 'not found.');
+        }
+
+        $user->update(['active' => 1,'activation_code' => null]);
+
+        return jsonResponse(201, 'done.');
+    }
 
     public function logout()
     {

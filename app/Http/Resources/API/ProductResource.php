@@ -18,8 +18,11 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'category_id' => $this->category_id,
-            'points' => $this->points_per_piece,
-            'image' => $this->image->realPath(),
+            'unit' => $this->unit,
+            'price' => $this->price,
+            'discount' => $this->discount,
+            'net_price' => $this->price - ($this->price * ($this->discount / 100)),
+            'image' => getFullImagePath($this),
         ];
     }
 }

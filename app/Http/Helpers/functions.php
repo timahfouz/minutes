@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -91,5 +92,17 @@ if (!function_exists('getFullImagePath')) {
 if (!function_exists('getUser')) {
     function getUser() {
         return Auth::guard('api')->user();
+    }
+}
+
+
+
+if (!function_exists('generateCode')) {
+    function generateCode($digits=5) {
+        $code = rand(pow(1, ($digits-1)), pow(10, $digits)-1);
+        $exists = User::where('activation_code', $code)->first();
+        if ($exists)
+            generateCode();
+        return $code;
     }
 }

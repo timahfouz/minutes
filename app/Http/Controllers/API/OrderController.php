@@ -19,31 +19,46 @@ class OrderController extends InitController
     public function __invoke(OrderRequest $request)
     {
         DB::beginTransaction();
+
+        
+        $total_cost = 0;
+        $userId = getUser()->id;
+        $data = [
+            'user_id' => $userId,
+            'cart_id' => $request->cart_id
+        ];
+        
         try {
-            $user = getUser();
+            
             $cart = $this->pipeline->setModel('Cart')->where([
                 'id' => $request->cart_id,
-                'user_id' => $user->id,
-                'status' => 'preview'
+                'user_id' => $userId,
+                'is_ordered' => 0
             ])->first();
-            
+
             if (!$cart) {
                 return jsonResponse(404, 'not found!'); 
             }
-            $points = 0;
+            
             foreach($cart->items as $item) {
-                $points += $item->points_per_piece * $item->qty;
+                $total_cost += $item->price * $item->qty;
+            }
+
+            if ($request->filled('coupon')) {
+                $coupon = $this->pipeline->setModel('Coupon')->where('code', $request->coupon)->first();
+                $data['coupon_id'] = $coupon->id;
+                $data['coupon_value'] = $coupon->value;
+
+                $total_cost -= $coupon->value;
             }
             
-            $this->pipeline->setModel('Order')->create([
-                'user_id' => getUser()->id,
-                'cart_id' => $request->cart_id,
-                'total_points' => $points
-            ]);
             
-            $user->increment('points', $points);
             
-            $cart->update(['status' => 'checkedout']);
+            $data['total_cost'] = $total_cost;
+
+            $this->pipeline->setModel('Order')->create($data);
+            
+            $cart->update(['is_ordered' => '1']);
 
             DB::commit();
         } catch (\Exception $ex) {
