@@ -16,8 +16,15 @@ class FilterOrdersPipeline extends PipelineFactory
 
     protected function apply($builder)
     {
+        $index = [
+            'pending' => ['pending','on-way'],
+            'completed' => ['completed'],
+            'rejected' => ['rejected'],
+        ];
+        $searchIn = isset($index[$this->request->status]) ? $index[$this->request->status] : [];
+
         if ($this->request && $this->request->filled('status')) {
-            return $builder->where('status', $this->request->status);
+            return $builder->whereIn('status', $searchIn);
         }
         return $builder;
     }

@@ -15,5 +15,10 @@ class Product extends Model
     {
         return $this->belongsTo(Media::class, 'image_id')->withDefault();
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id')->withDefault();
+    }
     
 }

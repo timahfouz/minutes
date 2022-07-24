@@ -16,7 +16,17 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault();
     }
+
+    public function carrier()
+    {
+        return $this->belongsTo(Carrier::class, 'carrier_id')->withDefault();
+    }
     
+    public function info()
+    {
+        return $this->hasOne(OrderInfo::class, 'order_id');
+    }
+
     public function cart()
     {
         return $this->belongsTo(Cart::class, 'cart_id')->withDefault();
@@ -28,7 +38,7 @@ class Order extends Model
         $url = env('APP_URL');
 
         return DB::table('orders')
-            ->selectRaw("p.id as product_id, p.name, CONCAT('$url','',media.path) as image_path, ci.qty")
+            ->selectRaw("p.id as product_id, p.name, p.unit, p.price, CONCAT('$url','',media.path) as image_path, ci.qty")
             ->leftJoin('cart_items as ci', function($join) {
                 $join->on('orders.cart_id','=','ci.cart_id');
             })

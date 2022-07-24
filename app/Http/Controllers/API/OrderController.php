@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\API\OrderRequest;
 use App\Http\Resources\API\OrderResource;
+use App\Http\Resources\API\OrderInfoResource;
 use App\Pipelines\Criterias\FilterOrdersPipeline;
 
 class OrderController extends InitController
@@ -52,13 +53,26 @@ class OrderController extends InitController
                 $total_cost -= $coupon->value;
             }
             
-            
-            
             $data['total_cost'] = $total_cost;
 
-            $this->pipeline->setModel('Order')->create($data);
+            $order = $this->pipeline->setModel('Order')->create($data);
             
             $cart->update(['is_ordered' => '1']);
+
+            $settings = $this->pipeline->setModel('Setting')->whereIn('key', ['commission','delivery_fees'])
+                ->pluck('value', 'key')->toArray();
+            
+            $this->pipeline->setModel('OrderInfo')->create([
+                'order_id' => $order->id,
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'lat' => $request->lat,
+                'lon' => $request->lon,
+                'commission' => $settings['commission'] ?? 0.0,
+                'delivery_fees' => $settings['delivery_fees'] ?? 0.0,
+            ]);
+
 
             DB::commit();
         } catch (\Exception $ex) {
@@ -96,25 +110,9 @@ class OrderController extends InitController
             return jsonResponse(404, 'not found.'); 
         }
 
-        $response = new OrderResource($order);
+        $response = new OrderInfoResource($order);
 
         return jsonResponse(200, 'done.', $response); 
     }
-
-    public function last()
-    {
-        $user = getUser();
-
-        $order = $this->pipeline->where([
-            'user_id' => $user->id
-        ])->orderBy('id', 'desc')->first();
-
-        if (!$order) {
-            return jsonResponse(404, 'not found.'); 
-        }
-        
-        $response = new OrderResource($order);
-
-        return jsonResponse(200, 'done.', $response); 
-    }
+    
 }

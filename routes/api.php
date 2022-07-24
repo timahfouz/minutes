@@ -36,18 +36,24 @@ Route::group(['namespace' => 'API'], function() {
 
     Route::group(['middleware' => 'auth:api'], function() {
         
-        
-        
         Route::get('categories', ['as' => 'categories', 'uses' => 'CategoryController']);
         Route::get('products', ['as' => 'products', 'uses' => 'ProductController']);
         // Route::get('offers', ['as' => 'offers', 'uses' => 'OfferController']);
         Route::apiResource('carts', 'CartController');
         Route::post('checkout', ['as' => 'order.checkout', 'uses' => 'OrderController']);
         Route::get('orders', ['as' => 'orders.index', 'uses' => 'OrderController@index']);
-        Route::get('orders/{id}', ['as' => 'orders.show', 'uses' => 'OrderController@show'])->where('id','[0-9]+');
-        Route::get('orders/last', ['as' => 'orders.last', 'uses' => 'OrderController@last']);
+        Route::get('orders/{id}', ['as' => 'orders.show', 'uses' => 'OrderController@show']);
         Route::get('settings/{key}', ['as' => 'settings', 'uses' => 'SettingsController']);
+        Route::post('contact-us', ['as' => 'contact-us', 'uses' => 'SettingsController@contactUs']);
     
     });
+
+
+    Route::group(['prefix' => 'carrier/auth','namespace' => 'Carrier', 'as' => 'carrier.'], function () {
+        Route::post('login', ['as' => 'login', 'uses' => 'AuthController@login']);
+
+        Route::get('logout', ['as' => 'logout.store', 'uses' => 'AuthController@logout'])->middleware('auth:carrier');
+    });
+
 
 });

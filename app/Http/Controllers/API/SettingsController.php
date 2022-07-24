@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\API\SettingsResource;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\ContactUsRequest;
+use App\Http\Resources\API\SettingsResource;
 
 class SettingsController extends InitController
 {
@@ -17,7 +18,7 @@ class SettingsController extends InitController
     public function __invoke($key)
     {
         if ($key == 'contacts') {
-            $data = $this->pipeline->whereIn('key',['phone','whatsapp','facebook',])->get();
+            $data = $this->pipeline->whereIn('key',['twitter','instagram','facebook','website'])->get();
             $response = SettingsResource::collection($data);
         } else {
             $data = $this->pipeline->where('key', $key)->first();
@@ -25,5 +26,12 @@ class SettingsController extends InitController
         }
         
         return jsonResponse(200, 'done.', $response);
+    }
+    
+    public function contactUs(ContactUsRequest $request)
+    {
+        $this->pipeline->setModel('ContactUs')->create($request->only(['name','phone','message']));
+        
+        return jsonResponse(201, 'done.');
     }
 }

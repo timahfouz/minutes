@@ -4,7 +4,7 @@ namespace App\Http\Requests\API;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderRequest extends FormRequest
+class ContactUsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'cart_id' => 'required|exists:carts,id',
-            'coupon' => 'nullable|exists:coupons,code',
             'name' => 'required|min:2',
             'phone' => 'required',
-            'address' => 'required|min:10',
+            'message' => 'required|min:5'
         ];
     }
 }
