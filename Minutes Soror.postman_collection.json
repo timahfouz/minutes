@@ -1,0 +1,1184 @@
+{
+	"info": {
+		"_postman_id": "64970168-a661-4f9c-8d35-c5e4a4fc3a4e",
+		"name": "Minutes Soror",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2966772"
+	},
+	"item": [
+		{
+			"name": "Carrier",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "zidan",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/carrier/auth/login",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"carrier",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{carrier}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/carrier/orders?status=pending",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"carrier",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{carrier}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/carrier/orders/3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"carrier",
+								"orders",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{carrier}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"on-way\",\n    \"rejection_reason\": \"I can't get in touch with the customer.\",\n    \"_method\": \"PUT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/carrier/orders/3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"carrier",
+								"orders",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{carrier}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/carrier/auth/logout",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"carrier",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "01273280587",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{local}}/auth/login",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Tarek",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "01273280582",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/mahfouz/Mahfouz/AWstreams/Screenshot from 2022-04-18 05-01-22.png"
+						},
+						{
+							"key": "governorate_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "city_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "area_id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{local}}/auth/register",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activate Account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "01273280587",
+							"type": "text"
+						},
+						{
+							"key": "activation_code",
+							"value": "49744",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{local}}/auth/activate",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"auth",
+						"activate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Tarek Mahfouz",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "01273280587",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/mahfouz/Mahfouz/AWstreams/Screenshot from 2022-04-18 05-01-22.png"
+						},
+						{
+							"key": "governorate_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "city_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "area_id",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{local}}/auth/update",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"auth",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Banners",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/banners",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"banners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Notifications",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/notifications",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Places",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/places/1",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"places",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Categories",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/categories",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/products?category_id=2&name=طماطم",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "category_id",
+							"value": "2"
+						},
+						{
+							"key": "name",
+							"value": "طماطم"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Daily Offers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/offers/products",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"offers",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/auth/profile",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add To Cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"qty\": 20\n        },\n        {\n            \"product_id\": 2,\n            \"qty\": 12\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/carts",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart Items",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/carts/2",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"carts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"qty\": 20\n        },\n        {\n            \"product_id\": 2,\n            \"qty\": 25\n        }\n    ],\n    \"_method\": \"PUT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/carts/2",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"carts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_id\": 4,\n    \"coupon\": \"FGHGFH345F\",\n    \"name\": \"Sror Rashad\",\n    \"phone\": \"01224345456\",\n    \"address\": \"كفر طحا، شبين القناطر، القليوبية\",\n    \"lat\": 32.43534234,\n    \"lon\": 32.43534234\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/checkout",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Special Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Sror Rashad",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "01224345456",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "New Special Order",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "كفر طحا، شبين القناطر، القليوبية",
+							"type": "text"
+						},
+						{
+							"key": "lat",
+							"value": "32.43534234",
+							"type": "text"
+						},
+						{
+							"key": "lon",
+							"value": "32.43534234",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/mahfouz/Pictures/Screenshots/Screenshot from 2022-06-21 12-44-00.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{local}}/special-order",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"special-order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Orders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/orders?status=pending",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "pending"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/orders/15",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"orders",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "About Us",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/settings/about-us",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"settings",
+						"about-us"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contact Us",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test API\",\t\n    \"phone\": \"01114232345\",\t\n    \"message\": \"Hello everybody, this's a test message\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/contact-us",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"contact-us"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Contacts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/settings/contacts",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"settings",
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/auth/logout",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "http://127.0.0.1:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2NTUzODE0MzksImV4cCI6MTY1NTM4NTAzOSwibmJmIjoxNjU1MzgxNDM5LCJqdGkiOiI5OVVlUTdzRk9rU1B0SmZmIiwic3ViIjoxLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.-c-s4hZbwP1OQfXsAxHQkRGB6dM-nm8B-5o6l6BMEIQ",
+			"type": "string"
+		},
+		{
+			"key": "carrier",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9jYXJyaWVyXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY1ODg2Mzk3NSwibmJmIjoxNjU4ODYzOTc1LCJqdGkiOiJaZ0g2RGJZYjBQblJGdjhjIiwic3ViIjoxLCJwcnYiOiIwZWM5OGE4ZGE3ZGRhZDNmZGRmMTBiMjBkNjJjNDRmNGNmZWQzNTM4In0.-4VwBcmSVNVYH7xJz17E-nwvdHVMGaVgTJkbYe3QPDc",
+			"type": "string"
+		}
+	]
+}
