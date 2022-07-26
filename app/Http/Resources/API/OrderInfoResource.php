@@ -18,10 +18,13 @@ class OrderInfoResource extends JsonResource
             'id' => $this->id,
             'status' => $this->status,
             'ordered_at' => $this->created_at->format('d/m/Y'),
-            'order_info' => new OrderContactInfoResource($this->info),
+            'is_special' => (bool)$this->is_special,
             'cost' => $this->total_cost,
             'total_cost' => ($this->total_cost + $this->info->commission + $this->info->delivery_fees),
-            'items' => $this->items()
+            'description' => $this->info->description,
+            'image' => getFullImagePath($this->info),
+            'order_info' => new OrderContactInfoResource($this->info),
+            'items' => $this->items() //$this->cart_id ? $this->items() : [],
         ];
     }
 }

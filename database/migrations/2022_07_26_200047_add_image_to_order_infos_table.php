@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderSpecialsTable extends Migration
+class AddImageToOrderInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateOrderSpecialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_specials', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('image_id')->nullable();
-            $table->text('description');
-            $table->timestamps();
-            $table->foreign('order_id')->on('orders')->references('id');
+        Schema::table('order_infos', function (Blueprint $table) {
+            $table->text('description')->nullable()->after('delivery_fees');
+            $table->unsignedBigInteger('image_id')->nullable()->after('description');
             $table->foreign('image_id')->on('media')->references('id')->onDelete('set null');
         });
     }
@@ -31,6 +27,8 @@ class CreateOrderSpecialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_specials');
+        Schema::table('order_infos', function (Blueprint $table) {
+            $table->dropColumn(['description','image_id']);
+        });
     }
 }

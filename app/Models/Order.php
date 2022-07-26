@@ -24,7 +24,10 @@ class Order extends Model
     
     public function info()
     {
-        return $this->hasOne(OrderInfo::class, 'order_id');
+        return $this->hasOne(OrderInfo::class, 'order_id')->withDefault([
+            'commission' => 0,
+            'delivery_fees' => 0,
+        ]);
     }
 
     public function cart()

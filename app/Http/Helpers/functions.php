@@ -42,7 +42,7 @@ if (!function_exists('uploadFile')) {
 
 
 if (!function_exists('resizeImage')) {
-    function resizeImage($file, $path, $allSizes=false) {
+    function resizeImage($file, $path, $dimensions = [100, 100], $allSizes=false) {
 
         $destination = public_path($path);
 
@@ -53,12 +53,12 @@ if (!function_exists('resizeImage')) {
 
         $ext = strtolower($file->getClientOriginalExtension());
         $name = time().Str::random(5);
-        $fileName = '165X165'.$name.'.'.$ext;
+        $fileName = "$dimensions[0]X$dimensions[1]$name.$ext";
 
         
         $img = Image::make($file->getRealPath());
 
-        $img->resize(100, 100, function ($constraint) {
+        $img->resize($dimensions[0], $dimensions[1], function ($constraint) {
             $constraint->aspectRatio();
         })->save($destination.'/'.$fileName);
 
@@ -92,6 +92,12 @@ if (!function_exists('getFullImagePath')) {
 if (!function_exists('getUser')) {
     function getUser() {
         return Auth::guard('api')->user();
+    }
+}
+
+if (!function_exists('getCarrier')) {
+    function getCarrier() {
+        return Auth::guard('carrier')->user();
     }
 }
 

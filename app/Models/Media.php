@@ -13,6 +13,6 @@ class Media extends Model
 
     public function realPath()
     {
-        return env('APP_URL').$this->path;
+        return env('APP_URL').'/'.$this->path;
     }
 }

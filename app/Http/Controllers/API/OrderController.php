@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\API\OrderRequest;
 use App\Http\Resources\API\OrderResource;
 use App\Http\Resources\API\OrderInfoResource;
+use App\Http\Requests\API\SpecialOrderRequest;
 use App\Pipelines\Criterias\FilterOrdersPipeline;
 
 class OrderController extends InitController
@@ -83,6 +84,54 @@ class OrderController extends InitController
         return jsonResponse(201); 
     }
     
+
+    public function special(SpecialOrderRequest $request)
+    {
+        DB::beginTransaction();
+
+        $total_cost = 0;
+        $userId = getUser()->id;
+        $data = [
+            'user_id' => $userId,
+            'is_special' => true
+        ];
+        
+        try {
+
+            $order = $this->pipeline->setModel('Order')->create($data);
+
+            $settings = $this->pipeline->setModel('Setting')->whereIn('key', ['commission','delivery_fees'])
+                ->pluck('value', 'key')->toArray();
+            
+            $image_id = null;
+
+            if ($request->hasFile('image')) {
+                $path = resizeImage($request->image, 'uploads', [300, 300]);
+                $media = $this->pipeline->setModel('Media')->create(['path' => $path]);
+                $image_id = $media->id;
+            }
+
+            $this->pipeline->setModel('OrderInfo')->create([
+                'order_id' => $order->id,
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'description' => $request->description,
+                'image_id' => $image_id,
+                'lat' => $request->lat,
+                'lon' => $request->lon,
+                'commission' => $settings['commission'] ?? 0.0,
+                'delivery_fees' => $settings['delivery_fees'] ?? 0.0,
+            ]);
+
+            DB::commit();
+        } catch (\Exception $ex) {
+
+            DB::rollback();
+            return jsonResponse(400, $ex->getMessage());
+        }
+        return jsonResponse(201); 
+    }
     
     public function index(Request $request)
     {

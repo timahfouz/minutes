@@ -32,7 +32,7 @@ class AuthController extends InitController
     
     public function logout()
     {
-        Auth::guard('api')->logout();
+        Auth::guard('carrier')->logout();
         
         return jsonResponse(200);
     }

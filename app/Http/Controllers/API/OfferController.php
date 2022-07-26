@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\API\ProductResource;
-use App\Pipelines\Criterias\FilterByCategoryPipeline;
+use App\Http\Resources\API\OfferResource;
+use App\Pipelines\Criterias\DailyOffersPipeline;
+use App\Pipelines\Criterias\ProductOffersPipeline;
 
 class OfferController extends InitController
 {
@@ -15,13 +14,17 @@ class OfferController extends InitController
         $this->pipeline->setModel('Offer');
     }
 
-    public function __invoke(Request $request)
+    public function __invoke($type)
     {
-        $this->pipeline->pushPipeline(new FilterByCategoryPipeline($request));
-
+        if ($type == 'daily') {
+            $this->pipeline->pushPipeline(new DailyOffersPipeline());
+        } elseif ($type == 'products') {
+            $this->pipeline->pushPipeline(new ProductOffersPipeline());
+        }
+        
         $data = $this->pipeline->get();
-
-        $response = ProductResource::collection($data);
+        // return jsonResponse(200, 'done.', $data); 
+        $response = OfferResource::collection($data);
 
         return jsonResponse(200, 'done.', $response);   
     }

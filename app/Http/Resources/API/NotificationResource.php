@@ -4,7 +4,7 @@ namespace App\Http\Resources\API;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class NotificationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'status' => $this->status,
-            'is_special' => (bool)$this->is_special,
-            'ordered_at' => $this->created_at->format('d/m/Y'),
-            'carrier_phone' => $this->carrier->phone,
+            'title' => $this->title,
+            'body' => $this->body,
+            'created_at' => $this->created_at->format('d/m/Y'),
         ];
     }
 }
