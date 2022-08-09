@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('title')
-    إضافة منتج جديد
+    تعديل بيانات المستخدم
 @endsection
 @section('content')
     <div class="col-lg-12 col-12 layout-spacing">
@@ -8,20 +8,23 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>تفاصيل المنتج</h4>
+                        <h4>بيانات العميل</h4>
                     </div>
                 </div>
             </div>
             <x-feedback />
             <div class="widget-content widget-content-area">
-            {{ Form::open(['route' => ['admin.products.store'], 'method' => 'POST', 'files' => true]) }}
+                {{ Form::open(['route' => ['admin.users.update', $item->id], 'method' => 'PUT', 'files' => true ]) }}
 
-                @include('admin.products._form')
+                    @include('admin.users._form')
 
-                <input type="submit" value="Save" class="mt-4 mb-4 btn btn-primary">
-            {{ Form::close() }}
+                    <input type="submit" value="Save" class="mt-4 mb-4 btn btn-primary">
+                {{ Form::close() }}
 
             </div>
         </div>
     </div>
+
+
+
 @endsection

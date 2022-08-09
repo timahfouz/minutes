@@ -55,6 +55,11 @@ class Carrier extends Authenticatable implements JWTSubject
         return $this->belongsTo(Media::class, 'image_id')->withDefault();
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'carrier_id');
+    }
+
     // JWT
     public function getJWTIdentifier()
     {

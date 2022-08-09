@@ -36,7 +36,7 @@
                                 <b style="font-size: 18px;">{{ $item->user->name }}</b>
                             </td>
                             <td class="checkbox-column">
-                                <b style="font-size: 18px;">{{ $item->carrier->name ?? '---' }}</b>
+                                <b style="font-size: 18px;">{{ $item->carrier_id ? $item->carrier->username.' - '.$item->carrier->phone : '---' }}</b>
                             </td>
                             <td class="checkbox-column">
                                 <b style="font-size: 18px;">{{ translateStatus($item->status) }}</b>

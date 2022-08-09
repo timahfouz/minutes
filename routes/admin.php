@@ -25,6 +25,10 @@ Route::group(['middleware' => ['auth:admin'], 'namespace' => 'Admin', 'as' => 'a
 
     Route::resource('admins', 'AdminController');
 
+    Route::resource('users', 'UserController');
+
+    Route::resource('carriers', 'CarrierController');
+
     Route::resource('cities', 'CityController');
 
     Route::resource('areas', 'AreaController');

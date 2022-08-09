@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\View;
+use App\Http\Requests\Admin\Orders\UpdateRequest;
 
 class OrderController extends CRUDController
 {
@@ -13,7 +14,17 @@ class OrderController extends CRUDController
     
     protected $index_view = 'admin.orders.index';
     protected $edit_view = 'admin.orders.edit';
-
-    protected $store_request = CreateRequest::class;
+    
     protected $update_request = UpdateRequest::class;
+
+    private $carriers;
+
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->carriers = $this->pipeline->setModel('Carrier')->get();
+        
+        View::share('carriers', $this->carriers);
+    }
 }

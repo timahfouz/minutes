@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('title')
-    Updating Product
+   تعديل بيانات المنتج
 @endsection
 @section('content')
     <div class="col-lg-12 col-12 layout-spacing">

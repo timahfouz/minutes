@@ -40,6 +40,11 @@ class Order extends Model
         return $this->belongsTo(Cart::class, 'cart_id')->withDefault();
     }
 
+    public function catItems()
+    {
+        return CartItem::where('cart_id', $this->cart_id)->get();
+    }
+
     public function items()
     {
         $orderId = $this->id;

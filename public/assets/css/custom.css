@@ -3,3 +3,19 @@
     width: 100px;
     border-radius: 50px;
 }
+
+.avatar {
+    margin: 5px;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
+
+.attachment {
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.margin {
+    margin: 20px;
+}
