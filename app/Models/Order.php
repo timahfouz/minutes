@@ -22,6 +22,11 @@ class Order extends Model
         return $this->belongsTo(Carrier::class, 'carrier_id')->withDefault();
     }
     
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class, 'coupon_id')->withDefault();
+    }
+    
     public function info()
     {
         return $this->hasOne(OrderInfo::class, 'order_id')->withDefault([

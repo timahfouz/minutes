@@ -50,6 +50,11 @@ return [
             'driver' => 'jwt',
             'provider' => 'carriers',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -80,6 +85,10 @@ return [
             'model' => App\Models\Carrier::class,
         ],
         
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

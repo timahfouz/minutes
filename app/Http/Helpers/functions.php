@@ -112,3 +112,15 @@ if (!function_exists('generateCode')) {
         return $code;
     }
 }
+
+
+if (!function_exists('translateStatus')) {
+    function translateStatus($status) {
+        return [
+            'pending'  => 'جارى التنفيذ',
+            'on-way'  => 'قيد التوصيل',
+            'completed'  => 'مكتمل',
+            'rejected' => 'مرفوض'
+        ][$status];
+    }
+}
