@@ -1,21 +1,21 @@
 @extends('admin.layout.master')
 @section('title')
-Settings
+الإعدادات
 @endsection
 
 @section('content')
 
 <div class="col-lg-12 col-12 layout-spacing">
     <div class="statbox widget box box-shadow">
-        <div class="widget-header">
+        <div class="widget-header margin">
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                     <h4>Settings</h4>
                 </div>
             </div>
         </div>
-        <div class="widget-content widget-content-area">
-        {{ Form::open(['route' => ['admin.settings.update'], 'method' => 'POST', 'files' => true ]) }}
+        <div class="widget-content widget-content-area margin">
+        {{ Form::open(['route' => ['admin.settings.update'], 'method' => 'POST']) }}
 
             @include('admin.settings._form')
 

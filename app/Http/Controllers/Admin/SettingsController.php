@@ -5,61 +5,43 @@ namespace App\Http\Controllers\Admin;
 use App\Pipelines\Pipeline;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SettingsRequest;
+use App\Http\Requests\Admin\SettingsRequest;
+use App\Http\Requests\Admin\Settings\UpdateRequest;
 
 class SettingsController extends Controller
 {
     protected $pipeline;
-    protected $model;
 
     public function __construct()
     {
-        $this->pipeline = app(Pipeline::class);
-        $this->model = $this->pipeline->setModel('Setting');
-
+        $this->pipeline = app(Pipeline::class)->setModel('Setting');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $items = $this->model->get();
-        $content = $items->where('key','content')->first()->value ?? null;
-        $image = getImagePath($items->where('key','image')->first()->value ?? null);
-        $video = getVideoPath($items->where('key','video')->first()->value ?? null);
+        $data = array_flip($this->pipeline->pluck('key','value')->toArray());
         
-        return view('admin.settings.index', compact('items','content','image','video'));
+        return view('admin.settings.index')->with($data);
     }
+    
     
     public function update(SettingsRequest $request)
     {
-        $content = $request->content;
-        $image = null;
-        
-        $data = [[
-            'key' => 'content',
-            'value' => $content
-        ]];
-
-        if($request->hasFile('image')) {
-            $this->model->where('key', 'content')->orWhere('key', 'image')->delete();
-
-            if ($request->hasFile('image')) {
-                $image = uploadFile($request->image, 'images');
-            }
-            
-            if($request->hasFile('image')) {
+        \DB::beginTransaction();
+        try {
+            $this->pipeline->delete();
+            foreach($request->except('_token') as $key => $value) {
                 $data[] = [
-                    'key' => 'image',
-                    'value' => $image
+                    'key' => $key,
+                    'value' => $value,
                 ];
             }
             
-            $this->model->insert($data);
-        } else {
-            $this->model->where('key', 'content')->updateOrCreate([
-                'key' => 'content',
-                'value' => $content
-            ]);
+            $this->pipeline->insert($data);
+            \DB::commit();
+        } catch(\Exception $ex) {
+            \DB::rollback();
         }
-        return redirect()->route('admin.settings.index');
+        return redirect()->back()->with($data);
     }
 }

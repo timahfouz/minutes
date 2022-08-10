@@ -11,7 +11,6 @@ class CRUDController extends Controller
     protected $pipeline;
     protected $has_files = false;
 
-
     public function __construct()
     {
         $this->pipeline = app(Pipeline::class);
@@ -20,7 +19,7 @@ class CRUDController extends Controller
     public function index(Request $request)
     {
         $items = $this->pipeline->setModel($this->model)->get();
-        $delte_route = $this->delete_route;
+        $delte_route = $this->delete_route ?? null;
         
         return view($this->index_view, compact('items','delte_route'));
     }
