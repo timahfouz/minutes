@@ -5,16 +5,16 @@
 
 @section('content')
 
-    <div class="statbox widget box box-shadow" >
+    <div class="statbox widget box box-shadow margin" >
         <div class="widget-header" >
-            <div class="row">
+            <div class="row margin">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                     <h4> الطلبات
                     </h4>
                 </div>
             </div>
         </div>
-        <div class="widget-content widget-content-area">
+        <div class="widget-content widget-content-area margin">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
 

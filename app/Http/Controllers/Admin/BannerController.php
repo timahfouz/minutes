@@ -3,33 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use App\Http\Requests\Admin\Products\CreateRequest;
-use App\Http\Requests\Admin\Products\UpdateRequest;
+use App\Http\Requests\Admin\Banners\CreateRequest;
+use App\Http\Requests\Admin\Banners\UpdateRequest;
 
-class ProductController extends CRUDController
+
+class BannerController extends CRUDController
 {
-    protected $model = 'Product';
-    protected $index_route = 'admin.products.index';
-    protected $delete_route = 'admin.products.destroy';
+    protected $model = 'Banner';
+    protected $index_route = 'admin.banners.index';
+    protected $delete_route = 'admin.banners.destroy';
     
-    protected $index_view = 'admin.products.index';
-    protected $edit_view = 'admin.products.edit';
-    protected $create_view = 'admin.products.create';
+    protected $index_view = 'admin.banners.index';
+    protected $edit_view = 'admin.banners.edit';
+    protected $create_view = 'admin.banners.create';
 
     protected $store_request = CreateRequest::class;
     protected $update_request = UpdateRequest::class;
+
     protected $has_files = true;
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        $categories = $this->pipeline->setModel('Category')->get();
-        View::share('categories', $categories);
-    }
-
-    
     protected function storeData($request, &$data)
     {
         if ($request->hasFile('image')) {

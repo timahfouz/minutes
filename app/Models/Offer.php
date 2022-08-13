@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     use HasFactory;
+
+    protected $guarded = [ 'id', ];
+    
+    protected $casts = [ 'expired_at' => 'datetime' ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id')->withDefault();
+    }
 }

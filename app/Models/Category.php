@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->belongsTo(Media::class, 'image_id')->withDefault();
     }
+    
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

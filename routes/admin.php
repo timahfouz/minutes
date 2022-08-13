@@ -35,9 +35,15 @@ Route::group(['middleware' => ['auth:admin'], 'namespace' => 'Admin', 'as' => 'a
 
     Route::resource('places', 'PlaceController');
 
-    Route::resource('orders', 'OrderController');
+    Route::resource('banners', 'BannerController');
 
+    Route::resource('categories', 'CategoryController');
+    
     Route::resource('products', 'ProductController');
+
+    Route::resource('offers', 'OfferController');
+    
+    Route::resource('orders', 'OrderController');
 
     Route::get('contact-us', ['as' => 'messages.index','uses' => 'ContactUsController@index']);
 

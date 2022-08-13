@@ -19,3 +19,13 @@
 .margin {
     margin: 20px;
 }
+
+.rect-img {
+    max-height: 150px;
+    max-width: 200px;
+}
+
+.sm-img {
+    max-height: 100px;
+    max-width: 150px;
+}
