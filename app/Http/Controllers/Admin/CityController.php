@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\Cities\CreateRequest;
-use App\Http\Requests\Admin\Cities\UpdateRequest;
+use App\Http\Requests\Admin\Places\CreateRequest;
+use App\Http\Requests\Admin\Places\UpdateRequest;
 
 
 class CityController extends CRUDController
