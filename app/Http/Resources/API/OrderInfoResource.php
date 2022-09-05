@@ -17,6 +17,7 @@ class OrderInfoResource extends JsonResource
         return [
             'id' => $this->id,
             'status' => $this->status,
+            'status_tr' => translateStatus($this->status),
             'ordered_at' => $this->created_at->format('d/m/Y'),
             'is_special' => (bool)$this->is_special,
             'cost' => $this->total_cost,
