@@ -37,6 +37,8 @@ Route::group(['middleware' => ['auth:admin'], 'namespace' => 'Admin', 'as' => 'a
 
     Route::resource('banners', 'BannerController');
 
+    Route::resource('sections', 'SectionController');
+
     Route::resource('categories', 'CategoryController');
     
     Route::resource('products', 'ProductController');

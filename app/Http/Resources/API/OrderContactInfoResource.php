@@ -18,6 +18,7 @@ class OrderContactInfoResource extends JsonResource
             "name" => $this->name,
             "phone" => $this->phone,
             "address" => $this->address,
+            "extra_address" => $this->extra_address,
             "lat" => $this->lat,
             "lon" => $this->lon,
             "commission" => $this->commission,

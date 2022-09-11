@@ -24,7 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,name,'.$this->segment(3),
+            'name' => 'required|min:3',
+            'parent_id' => 'nullable|exists:categories,id'
         ];
     }
 }

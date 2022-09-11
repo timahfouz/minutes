@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required|min:5',
             'email' => 'required|email|unique:admins,email,'.$this->segment(3),
-            'password' => 'required|min:6|confirmed',
+            'password' => 'nullable|min:6|confirmed',
         ];
     }
 }

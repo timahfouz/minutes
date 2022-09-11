@@ -19,6 +19,7 @@ class CreateOrderInfosTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
+            $table->text('extra_address')->nullable();
             $table->double('lat')->nullable();
             $table->double('lon')->nullable();
             $table->timestamps();

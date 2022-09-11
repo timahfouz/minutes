@@ -24,7 +24,8 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,name'
+            'name' => 'required|min:3',
+            'parent_id' => 'nullable|exists:categories,id'
         ];
     }
 }

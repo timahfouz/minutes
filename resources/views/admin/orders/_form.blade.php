@@ -37,6 +37,7 @@
             <th>الاسم</th>
             <th>رقم الهاتف</th>
             <th>العنوان</th>
+            <th>العنوان التفصيلى</th>
             <th>ملاحظات</th>
             <th>مرفقات</th>
         </tr>
@@ -46,6 +47,7 @@
             <td>{{ $item->info->name }}</td>
             <td>{{ $item->info->phone }}</td>
             <td>{{ $item->info->address }}</td>
+            <td>{{ $item->info->extra_address }}</td>
             <td>{{ $item->info->description }}</td>
             <td>
                 <img class="attachment" src="{{ $item->info->image->realPath() }}" alt="">
