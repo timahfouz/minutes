@@ -24,12 +24,12 @@ class CreateUserRequest extends ShapeRequest
     public function rules()
     {
         return [
-            'name'  => 'required|min:2',
+            'name'  => 'nullable|min:2',
             'phone' => 'required|unique:users,phone',
-            'password' => 'required|min:8|confirmed',
-            'governorate_id' => 'required|exists:places,id',
-            'city_id' => 'required|exists:places,id',
-            'area_id' => 'required|exists:places,id',
+            'password' => 'nullable|min:8|confirmed',
+            'governorate_id' => 'nullable|exists:places,id',
+            'city_id' => 'nullable|exists:places,id',
+            'area_id' => 'nullable|exists:places,id',
             'image' => 'nullable|image',
         ];
     }

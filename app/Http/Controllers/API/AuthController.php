@@ -35,7 +35,7 @@ class AuthController extends InitController
     {
         DB::beginTransaction();
         try {
-            $data = $request->except(['password_confirmation','image']);
+            $data = $request->only(['phone']);
             
             if($request->hasFile('image')) {
                 $path = resizeImage($request->image, 'uploads', $allSizes=false);
