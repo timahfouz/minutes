@@ -26,11 +26,10 @@ class CategoryController extends InitController
     public function index(Request $request)
     {
         if ($request->filled('id')) {
-            $this->pipeline->where('parent_id', $request->id);
+            $data = $this->pipeline->where('parent_id', $request->id)->get();
         } else {
-            $this->pipeline->whereNotNull('parent_id');
+            $data = $this->pipeline->whereNotNull('parent_id')->get();
         }
-        $data = $this->pipeline->get();
 
         $response = CategoryResource::collection($data);
 
