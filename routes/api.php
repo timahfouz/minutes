@@ -40,7 +40,8 @@ Route::group(['namespace' => 'API'], function() {
         Route::get('banners', ['as' => 'banners', 'uses' => 'BannerController']);
         Route::get('notifications', ['as' => 'notifications', 'uses' => 'NotificationController']);
 
-        Route::get('categories', ['as' => 'categories', 'uses' => 'CategoryController']);
+        Route::get('sections', ['as' => 'categories', 'uses' => 'CategoryController@sections']);
+        Route::get('categories', ['as' => 'categories', 'uses' => 'CategoryController@index']);
         Route::get('products', ['as' => 'products', 'uses' => 'ProductController']);
         Route::get('offers/{type}', ['as' => 'offers', 'uses' => 'OfferController']);
 

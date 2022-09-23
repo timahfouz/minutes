@@ -14,8 +14,22 @@ class CategoryController extends InitController
         $this->pipeline->setModel('Category');
     }
 
-    public function __invoke(Request $request)
+    public function sections()
     {
+        $data = $this->pipeline->whereNull('parent_id')->get();
+
+        $response = CategoryResource::collection($data);
+
+        return jsonResponse(200, 'done.', $response);   
+    }
+    
+    public function index(Request $request)
+    {
+        if ($request->filled('id')) {
+            $this->pipeline->where('parent_id', $request->id);
+        } else {
+            $this->pipeline->whereNotNull('parent_id');
+        }
         $data = $this->pipeline->get();
 
         $response = CategoryResource::collection($data);
