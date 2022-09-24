@@ -5,6 +5,12 @@
 </div>
 
 <div class="form-group mb-4 col-md-6">
+    <label for="description"> وصف الفئة:</label>
+    <input type="text" required class="form-control @error('description') is-invalid @enderror" id="description"
+        name="description" placeholder="وصف الفئة" value="{{old('description', (isset($item) ? $item->description : ''))}}">
+</div>
+
+<div class="form-group mb-4 col-md-6">
     <label for="unit"> القسم:</label>
     <select type="text" required class="form-control" id="section" name="parent_id">
         @foreach($sections as $section)

@@ -18,7 +18,7 @@ class FilterBySectionPipeline extends PipelineFactory
     protected function apply($builder)
     {
         if ($this->request && $this->request->filled('section_id')) {
-            $categoryIds = Category::where('parent_id', $this->request->get('category_id'))
+            $categoryIds = Category::where('parent_id', $this->request->get('section_id'))
                 ->pluck('id')->toArray();
             $builder = $builder->whereIn('category_id', $categoryIds);
         }

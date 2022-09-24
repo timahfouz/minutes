@@ -3,6 +3,7 @@
 namespace App\Http\Resources\API;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use PhpParser\Node\Expr\Cast\Double;
 
 class ProductResource extends JsonResource
 {
@@ -22,9 +23,9 @@ class ProductResource extends JsonResource
                 'name' => $this->category->name,
             ],
             'unit' => $this->unit,
-            'price' => $this->price,
-            'discount' => $this->discount,
-            'net_price' => $this->price - ($this->price * ($this->discount / 100)),
+            'price' => (double)$this->price,
+            'discount' => (double)$this->discount,
+            'net_price' => (double)($this->price - ($this->price * ($this->discount / 100))),
             'image' => getFullImagePath($this),
         ];
     }
