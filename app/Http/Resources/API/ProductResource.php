@@ -23,9 +23,9 @@ class ProductResource extends JsonResource
                 'name' => $this->category->name,
             ],
             'unit' => $this->unit,
-            'price' => (double)$this->price,
-            'discount' => (double)$this->discount,
-            'net_price' => (double)($this->price - ($this->price * ($this->discount / 100))),
+            'price' => number_format($this->price, 1),
+            'discount' => number_format($this->discount, 1),
+            'net_price' => number_format(($this->price - ($this->price * ($this->discount / 100))), 1),
             'image' => getFullImagePath($this),
         ];
     }
