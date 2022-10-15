@@ -21,6 +21,7 @@ class OrderResource extends JsonResource
             'is_special' => (bool)$this->is_special,
             'ordered_at' => $this->created_at->format('d/m/Y'),
             'carrier_phone' => $this->carrier->phone,
+            'rejection_reason' => $this->rejection_reason,
         ];
     }
 }

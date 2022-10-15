@@ -43,6 +43,7 @@ Route::group(['namespace' => 'API'], function() {
         Route::get('sections', ['as' => 'categories', 'uses' => 'CategoryController@sections']);
         Route::get('categories', ['as' => 'categories', 'uses' => 'CategoryController@index']);
         Route::get('products', ['as' => 'products', 'uses' => 'ProductController']);
+        Route::get('products/random', ['as' => 'products.random', 'uses' => 'ProductController@randomItems']);
         Route::get('offers/{type}', ['as' => 'offers', 'uses' => 'OfferController']);
 
         Route::apiResource('carts', 'CartController');
