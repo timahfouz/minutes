@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\API\CreateUserRequest;
 use App\Http\Resources\API\UserResource;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends InitController
 {
@@ -43,7 +44,9 @@ class AuthController extends InitController
                 $data['image_id'] = $media->id;
             }
 
-            $data['activation_code'] = generateCode();
+            $data['password'] = Hash::make('123456');
+
+            $data['activation_code'] = '12345';//generateCode();
 
             $user = $this->pipeline->setModel('User')->create($data);
 
