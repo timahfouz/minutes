@@ -26,7 +26,7 @@ class OfferResource extends JsonResource
             'old_price' => $this->price,
             'price' => $this->new_price,
             'saving' => $this->price - $this->new_price,
-            'discount' => number_format((($this->price - $this->new_price) / $this->price), 2),
+            'discount' => number_format((($this->price - $this->new_price) / $this->price), 2) * 100,
             'image' => $this->image_path,
         ];
     }
