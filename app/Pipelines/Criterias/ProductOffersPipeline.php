@@ -2,37 +2,47 @@
 
 namespace App\Pipelines\Criterias;
 
-use App\Pipelines\PipelineFactory;
-
-class ProductOffersPipeline extends PipelineFactory
+class ProductOffersPipeline
 {
-    private $categoryId;
+    private $model;
 
-    public function __construct($categoryId = null)
+    public function __construct($model)
     {
-        $this->categoryId = $categoryId;
+        $namespace = 'App\\Models\\';
+        $class = $namespace . $model;
+        $this->model = new $class();
     }
-    
-    protected function apply($builder)
+
+
+    public function apply()
     {
         $url = env('APP_URL');
-        $builder = $builder->selectRaw("offers.*, p.category_id, p.name, p.price, CONCAT('$url','/',m.path) as image_path, c.name as category_name")
+        $sql = $builder = clone $this->model;
+
+        $result = [];
+        $categories = $sql->select('category_id')->distinct()->get();
+        foreach($categories as $category) {
+            $ref = $category->category;
+            $categ = [];
+            $categ['category'] = [
+                'id' => $category->category_id,
+                'name' => $ref->name,
+                'color' => '0XFF'.str_replace('#','', $ref->color),
+            ];
+            
+            $categ['products'] = $builder->selectRaw("offers.product_id, offers.new_price, offers.new_unit, offers.title, p.name, p.price, ROUND(((p.price - offers.new_price) / p.price) * 100, 1) as discount, CONCAT('$url','/',m.path) as image_path")
             ->leftJoin('products as p', function($join) {
                 $join->on('p.id','=','offers.product_id');
-            })
-            ->leftJoin('categories as c', function($join) {
-                $join->on('c.id','=','p.category_id');
             })
             ->leftJoin('media as m', function($join) {
                 $join->on('m.id','=','p.image_id');
             })
-            ->where('is_offer_expired', false);
+            ->where('is_offer_expired', false)
+            ->where('offers.category_id', $category->category_id)
+            ->get();
 
-        if ($this->categoryId) {
-            $builder = $builder->where('p.category_id', $this->categoryId);
+            $result[] = $categ;
         }
-        $builder = $builder->orderBy('p.category_id', 'ASC');
-
-        return $builder;
+        return $result;
     }
 }

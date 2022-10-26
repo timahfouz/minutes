@@ -25,6 +25,7 @@
                     <thead>
                     <tr>
                         <th class="">الاسم</th>
+                        <th class="">اللون</th>
                         <th class="">الصورة</th>
                         <th class="">عدد الفئات</th>
                         <th class="text-center">Action</th>
@@ -35,6 +36,9 @@
                         <tr>
                             <td class="checkbox-column">
                                 <b>{{ $item->name }}</b>
+                            </td>
+                            <td class="checkbox-column">
+                                <div style="height: 50px; width: 50px; background-color: {{ $item->color }}"></div>
                             </td>
                             <td class="checkbox-column">
                                 <img class="sm-img" src="{{ $item->image->realPath() }}" alt="">

@@ -18,6 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'color' => '0XFF'.str_replace('#','', $this->color),
             'image' => getFullImagePath($this),
         ];
     }

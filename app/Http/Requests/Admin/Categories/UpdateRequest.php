@@ -26,7 +26,8 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'description' => 'nullable|min:3',
-            'parent_id' => 'nullable|exists:categories,id'
+            'parent_id' => 'nullable|exists:categories,id',
+            'color' => 'nullable|string',
         ];
     }
 }

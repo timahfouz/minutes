@@ -18,13 +18,15 @@ class OfferController extends InitController
     {
         if ($type == 'daily') {
             $this->pipeline->pushPipeline(new DailyOffersPipeline());
+            $data = $this->pipeline->get();
+            $response = OfferResource::collection($data);
         } elseif ($type == 'products') {
-            $this->pipeline->pushPipeline(new ProductOffersPipeline());
+            $response = (new ProductOffersPipeline('Offer'))->apply();
         }
         
-        $data = $this->pipeline->get();
+        
         // return jsonResponse(200, 'done.', $data); 
-        $response = OfferResource::collection($data);
+        
 
         return jsonResponse(200, 'done.', $response);   
     }

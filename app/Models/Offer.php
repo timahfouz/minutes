@@ -17,4 +17,9 @@ class Offer extends Model
     {
         return $this->belongsTo(Product::class, 'product_id')->withDefault();
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id')->withDefault();
+    }
 }

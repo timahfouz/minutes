@@ -30,6 +30,7 @@ class UpdateRequest extends FormRequest
             'new_unit' => 'required',
             'is_offer_expired' => 'required|in:0,1',
             'expired_at' => ['required_if:is_offer_expired,==,1', new TodayTimeValidation],
+            'type' => 'nullable|in:daily','products'
         ];
     }
 }

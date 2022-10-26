@@ -26,4 +26,40 @@ class OfferController extends CRUDController
         $products = $this->pipeline->setModel('Product')->get();
         View::share('products', $products);
     }
+
+    public function store()
+    {
+        $request = app($this->store_request);
+
+        $data = $request->validated();
+        
+        $data['type'] = $data['is_offer_expired'] ? 'daily' : 'products';
+
+        $data['category_id'] = $this->pipeline->setModel('Product')
+            ->find($data['product_id'])
+            ->category_id;
+        
+        $this->pipeline->setModel($this->model)->create($data);
+
+        return redirect()->route($this->index_route);
+    }
+
+    public function update($id)
+    {
+        $request = app($this->update_request);
+        
+        $data = $request->validated();
+
+        $obj = $this->pipeline->setModel($this->model)->findOrFail($id);
+        
+        $data['type'] = $data['is_offer_expired'] ? 'daily' : 'products';
+        
+        $data['category_id'] = $this->pipeline->setModel('Product')
+            ->find($data['product_id'])
+            ->category_id;
+
+        $obj->update($data);
+
+        return redirect()->route($this->index_route);
+    }
 }

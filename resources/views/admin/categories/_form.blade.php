@@ -5,6 +5,12 @@
 </div>
 
 <div class="form-group mb-4 col-md-6">
+    <label for="color"> لون الفئة:</label>
+    <input type="text" required class="form-control @error('color') is-invalid @enderror" id="color"
+        name="color" placeholder="لون الفئة" value="{{old('color', (isset($item) ? $item->color : ''))}}">
+</div>
+
+<div class="form-group mb-4 col-md-6">
     <label for="description"> وصف الفئة:</label>
     <input type="text" required class="form-control @error('description') is-invalid @enderror" id="description"
         name="description" placeholder="وصف الفئة" value="{{old('description', (isset($item) ? $item->description : ''))}}">
@@ -17,5 +23,4 @@
         <option {{(isset($item) ? ($item->parent_id == $section->id) ? 'selected' : '' : '')}} value="{{ $section->id }}">{{ $section->name }}</option>
         @endforeach
     </select>
-        
 </div>
