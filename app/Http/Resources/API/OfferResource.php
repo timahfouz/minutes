@@ -15,19 +15,19 @@ class OfferResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id' => (int)$this->id,
+            'name' => $this->name ?? '',
             'category' => [
-                'id' => $this->category_id,
+                'id' => (int)$this->category_id,
                 'name' => $this->category_name,
             ],
-            'title' => $this->title,
+            'title' => $this->title ?? '',
             'unit' => $this->new_unit,
-            'old_price' => $this->price,
-            'price' => $this->new_price,
-            'saving' => $this->price - $this->new_price,
-            'discount' => number_format((($this->price - $this->new_price) / $this->price)  * 100, 2),
-            'image' => $this->image_path,
+            'old_price' => number_format($this->price, 1),
+            'price' => number_format($this->new_price, 1),
+            'saving' => number_format($this->price - $this->new_price, 1),
+            'discount' => number_format((($this->price - $this->new_price) / $this->price)  * 100, 1),
+            'image' => $this->image_path ?? '',
         ];
     }
 }

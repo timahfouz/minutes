@@ -46,4 +46,17 @@ class SettingsController extends InitController
         
         return jsonResponse(201, 'done.');
     }
+    
+    public function fees()
+    {
+        $settings = $this->pipeline->get();
+        $data = collect($settings);
+        
+        $response = [
+            'commission' => (double)$data->where('key','commission')->first()->value,
+            'delivery_fees' => (double)$data->where('key','delivery_fees')->first()->value,
+        ];
+        
+        return jsonResponse(201, 'done.', $response);
+    }
 }

@@ -51,8 +51,11 @@ Route::group(['namespace' => 'API'], function() {
         Route::post('special-order', ['as' => 'order.special', 'uses' => 'OrderController@special']);
         Route::get('orders', ['as' => 'orders.index', 'uses' => 'OrderController@index']);
         Route::get('orders/{id}', ['as' => 'orders.show', 'uses' => 'OrderController@show']);
-
         Route::get('settings/{key}', ['as' => 'settings', 'uses' => 'SettingsController']);
+        
+        Route::get('coupon/{code}', ['as' => 'coupon', 'uses' => 'OrderController@coupon']);
+        Route::get('fees', ['as' => 'fees', 'uses' => 'SettingsController@fees']);
+
         Route::post('contact-us', ['as' => 'contact-us', 'uses' => 'SettingsController@contactUs']);
     
     });
