@@ -5,9 +5,9 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\API\CreateUserRequest;
-use App\Http\Resources\API\UserResource;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\API\UserResource;
+use App\Http\Requests\API\CreateUserRequest;
 
 class AuthController extends InitController
 {
@@ -32,26 +32,27 @@ class AuthController extends InitController
         return jsonResponse(200, 'done.', $data);
     }
 
-    public function register(CreateUserRequest $request)
+    public function register(Request $request)
     {
         DB::beginTransaction();
         try {
             $data = $request->only(['phone']);
             
-            if($request->hasFile('image')) {
-                $path = resizeImage($request->image, 'uploads', $allSizes=false);
-                $media = $this->pipeline->setModel('Media')->create(['path' => $path]);
-                $data['image_id'] = $media->id;
+            $user = $this->pipeline->setModel('User')->where($data)->first();
+            if (!$user) {
+                if($request->hasFile('image')) {
+                    $path = resizeImage($request->image, 'uploads', $allSizes=false);
+                    $media = $this->pipeline->setModel('Media')->create(['path' => $path]);
+                    $data['image_id'] = $media->id;
+                }
+                $data['password'] = Hash::make('123456');
+                $data['activation_code'] = '12345';//generateCode();
+                $user = $this->pipeline->setModel('User')->create($data);
+                $user->access_token = auth()->guard('api')->tokenById($user->id);
+            } else {
+                $access_token = Auth::guard('api')->login($user);
+                $user->access_token = $access_token;
             }
-
-            $data['password'] = Hash::make('123456');
-
-            $data['activation_code'] = '12345';//generateCode();
-
-            $user = $this->pipeline->setModel('User')->create($data);
-
-            $user->access_token = auth()->guard('api')->tokenById($user->id);
-            
             $data = new UserResource($user);
 
             DB::commit();

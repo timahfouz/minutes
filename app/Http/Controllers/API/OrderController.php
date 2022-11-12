@@ -79,6 +79,7 @@ class OrderController extends InitController
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'address' => $request->address,
+                'extra_address' => $request->extra_address,
                 'lat' => $request->lat,
                 'lon' => $request->lon,
                 'commission' => $settings['commission'] ?? 0.0,

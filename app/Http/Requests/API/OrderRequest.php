@@ -28,8 +28,8 @@ class OrderRequest extends FormRequest
             'coupon' => 'nullable|exists:coupons,code',
             'name' => 'required|min:2',
             'phone' => 'required',
-            'address' => 'required|min:10',
-            'extra_address' => 'required|min:10',
+            'address' => 'required|min:5',
+            'extra_address' => 'required|min:1',
         ];
 
         if (request()->filled('items') && is_array(request()->items)) {
