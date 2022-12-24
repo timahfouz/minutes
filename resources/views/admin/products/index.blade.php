@@ -18,6 +18,24 @@ Products
                 </div>
             </div>
         </div>
+
+        {{ Form::open(['method' => 'GET']) }}
+        <div class="row">
+            <div class="form-group" style="margin-left: 50px;">
+                <input  type="text" class="form-control" name="keyword" placeholder="بحث بالاسم">
+            </div>
+            <div class="form-group" style="margin-left: 10px;">
+                <select name="category_id" class="form-control">
+                    <option value="">اختر الفئة</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button style="margin-left: 50px;" type="submit" class="btn btn-success">Search</button>
+        </div>
+        {{ Form::close() }}
+
         <div class="widget-content widget-content-area">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">

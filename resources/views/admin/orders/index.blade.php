@@ -14,12 +14,32 @@
                 </div>
             </div>
         </div>
+        {{ Form::open(['method' => 'GET']) }}
+        <div class="row">
+            <div class="form-group" style="margin-left: 50px;">
+                <input  type="text" class="form-control" name="user_id" placeholder="User ID">
+            </div>
+            <div class="form-group" style="margin-left: 10px;">
+                <input type="text" class="form-control" name="order_id" placeholder="Order ID">
+            </div>
+            <div class="form-group" style="margin-left: 10px;">
+                {!! Form::select('status', [
+                    '' => 'حالة الطلب',
+                    'pending' => 'جارى الطلب',
+                    'completed' => 'تم الطلب',
+                    'rejected' => 'مرفوض',
+                ], old('status') , ['class' => 'form-control']) !!}
+            </div>
+            <button style="margin-left: 50px;" type="submit" class="btn btn-success">Search</button>
+        </div>
+        {{ Form::close() }}
         <div class="widget-content widget-content-area margin">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
 
                     <thead>
                     <tr>
+                        <th class="">ID</th>
                         <th class="">اسم العميل</th>
                         <th class="">عامل التوصيل</th>
                         <th class="">الحالة</th>
@@ -32,6 +52,9 @@
                     <tbody>
                         @foreach($items as $item)
                         <tr>
+                            <td class="checkbox-column">
+                                <b style="font-size: 18px;">{{ $item->id }}</b>
+                            </td>
                             <td class="checkbox-column">
                                 <b style="font-size: 18px;">{{ $item->user->name }}</b>
                             </td>

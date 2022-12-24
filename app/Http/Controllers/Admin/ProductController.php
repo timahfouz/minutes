@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\Admin\Products\CreateRequest;
 use App\Http\Requests\Admin\Products\UpdateRequest;
+use App\Pipelines\Criterias\SearchProductsPipeline;
 
 class ProductController extends CRUDController
 {
@@ -29,7 +30,18 @@ class ProductController extends CRUDController
         View::share('categories', $categories);
     }
 
-    
+    public function index(Request $request)
+    {
+        
+        $this->pipeline->setModel($this->model);
+        $this->pipeline->pushPipeline(new SearchProductsPipeline($request));
+        $items = $this->pipeline->orderBy('created_at', 'DESC')->get();
+        $delte_route = $this->delete_route ?? null;
+        
+        $categories = $this->pipeline->setModel('Category')->whereNotNull('parent_id')->get();
+        return view($this->index_view, compact('items','delte_route','categories'));
+    }
+
     protected function storeData($request, &$data)
     {
         if ($request->hasFile('image')) {
