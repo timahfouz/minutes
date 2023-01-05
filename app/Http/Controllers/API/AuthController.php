@@ -46,13 +46,16 @@ class AuthController extends InitController
                     $data['image_id'] = $media->id;
                 }
                 $data['password'] = Hash::make('123456');
-                $data['activation_code'] = '12345';//generateCode();
+                $code = $data['activation_code'] = '12345';//generateCode();
                 $user = $this->pipeline->setModel('User')->create($data);
                 $user->access_token = auth()->guard('api')->tokenById($user->id);
             } else {
                 $access_token = Auth::guard('api')->login($user);
                 $user->access_token = $access_token;
             }
+
+            sendSMS($request->phone, "Your minutes code is: $code");
+
             $data = new UserResource($user);
 
             DB::commit();
