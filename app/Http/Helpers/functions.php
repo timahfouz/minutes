@@ -127,19 +127,25 @@ if (!function_exists('translateStatus')) {
 
 if (!function_exists('sendSMS')) {
     function sendSMS($to, $message) {
-        $to = $to;
-        $from = "Minutes";
-        //open connection
+        $url = "https://smsmisr.com/api/SMS/";
+
+        $fields = "environment=1";
+        $fields .= "&sender=b611afb996655a94c8e942a823f1421de42bf8335d24ba1f84c437b2ab11ca27";
+        $fields .= "&username=66a17c01-4401-4f25-a0da-7465789671ad";
+        $fields .= "&password=1a37f07cb8a1784f5cc7fbd244470371c072284937d447b197ae4248c076706c";
+        $fields .= "&mobile=2$to";
+        $fields .= "&language=2";
+        $fields .= "&message=$message";
+        
 
         $ch = curl_init();
 
         //set the url, number of POST vars, POST data
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_USERPWD, getenv("TWILIO_SID").':'.getenv("TWILIO_TOKEN"));
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-        curl_setopt($ch, CURLOPT_URL, sprintf('https://api.twilio.com/2010-04-01/Accounts/'.getenv("TWILIO_SID").'/Messages.json', getenv("TWILIO_SID")));
+        curl_setopt($ch, CURLOPT_URL, sprintf($url));
         curl_setopt($ch, CURLOPT_POST, 3);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'To='.$to.'&From='.$from.'&Body='.$message);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
 
         // execute post
         $result = curl_exec($ch);
@@ -147,5 +153,6 @@ if (!function_exists('sendSMS')) {
 
         // close connection
         curl_close($ch);
+        dd($result);
     }
 }

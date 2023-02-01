@@ -1,3 +1,8 @@
+<div class="form-group mb-4">
+    <label for="name"> اختر صورة:</label>
+    <input type="file" class="form-control" id="image"
+        name="image">
+</div>
 <div class="form-group mb-4 col-md-6">
     <label for="name"> اسم الفئة:</label>
     <input type="text" required class="form-control @error('name') is-invalid @enderror" id="name"
