@@ -130,9 +130,9 @@ if (!function_exists('sendSMS')) {
         $url = "https://smsmisr.com/api/SMS/";
 
         $fields = "environment=1";
-        $fields .= "&sender=b611afb996655a94c8e942a823f1421de42bf8335d24ba1f84c437b2ab11ca27";
+        $fields .= "&sender=c0b702cf5f1ee9a9407d5819203870d63e3acc49c76786c1b4f6c88f39e411ef";
         $fields .= "&username=66a17c01-4401-4f25-a0da-7465789671ad";
-        $fields .= "&password=1a37f07cb8a1784f5cc7fbd244470371c072284937d447b197ae4248c076706c";
+        $fields .= "&password=4857598902b008b747afcfbb6ea5228914faa5b226b57a1ab02cc1fbc0575a43";
         $fields .= "&mobile=2$to";
         $fields .= "&language=2";
         $fields .= "&message=$message";

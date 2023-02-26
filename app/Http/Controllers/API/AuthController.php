@@ -46,7 +46,7 @@ class AuthController extends InitController
                     $data['image_id'] = $media->id;
                 }
                 $data['password'] = Hash::make('123456');
-                $code = $data['activation_code'] = '12345';//generateCode();
+                $code = $data['activation_code'] = generateCode();
                 $user = $this->pipeline->setModel('User')->create($data);
                 $user->access_token = auth()->guard('api')->tokenById($user->id);
             } else {

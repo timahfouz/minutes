@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return sendSMS('01114254513', 'New SMS');
     return view('welcome');
 });
