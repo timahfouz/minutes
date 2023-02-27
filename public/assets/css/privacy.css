@@ -1,0 +1,31 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-lang {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+hr {
+    color: grey;
+    width: 75%;
+    height: 1px;
+}
+
+.content-lang h2{
+    font-size: 28px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+
+.content-lang p{
+    font-size: 18px;
+    font-family: monospace;
+    text-align: center;
+}

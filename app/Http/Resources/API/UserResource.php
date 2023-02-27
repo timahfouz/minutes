@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'phone' => $this->phone,
             'is_active' => (bool)$this->active,
-            'activation_code' => $this->activation_code,
+            // 'activation_code' => $this->activation_code,
             'governorate' => [
                 'id' => $this->governorate_id,
                 'name' => $this->governorate->name

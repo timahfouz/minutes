@@ -49,13 +49,12 @@ class AuthController extends InitController
                 $code = $data['activation_code'] = generateCode();
                 $user = $this->pipeline->setModel('User')->create($data);
                 $user->access_token = auth()->guard('api')->tokenById($user->id);
+
+                sendSMS($request->phone, "Your minutes code is: $code");
             } else {
                 $access_token = Auth::guard('api')->login($user);
                 $user->access_token = $access_token;
             }
-
-            sendSMS($request->phone, "Your minutes code is: $code");
-
             $data = new UserResource($user);
 
             DB::commit();
@@ -66,6 +65,18 @@ class AuthController extends InitController
         }
         
         return jsonResponse(201, 'done.', $data);
+    }
+
+    public function resendCode(Request $request)
+    {
+        $phone = $request->phone;
+        $user = $this->pipeline->setModel('User')->where(['phone' => $phone])->first();
+        if (!$user) {
+            return jsonResponse(404, 'not found.');
+        }
+        sendSMS($phone, "Your minutes code is: $user->activation_code");
+
+        return jsonResponse(200, 'done.');
     }
 
     public function activate(Request $request)

@@ -127,6 +127,8 @@ if (!function_exists('translateStatus')) {
 
 if (!function_exists('sendSMS')) {
     function sendSMS($to, $message) {
+        $to = str_replace('+2','',$to);
+
         $url = "https://smsmisr.com/api/SMS/";
 
         $fields = "environment=1";
@@ -153,6 +155,6 @@ if (!function_exists('sendSMS')) {
 
         // close connection
         curl_close($ch);
-        dd($result);
+        return $result;
     }
 }

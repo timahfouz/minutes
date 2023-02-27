@@ -26,6 +26,7 @@ Route::group(['namespace' => 'API'], function() {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', ['as' => 'login', 'uses' => 'AuthController@login']);
         Route::post('register', ['as' => 'register', 'uses' => 'AuthController@register']);
+        Route::post('resend-code', ['as' => 'resend.code', 'uses' => 'AuthController@resendCode']);
         Route::post('activate', ['as' => 'activate', 'uses' => 'AuthController@activate']);
 
         Route::get('profile', ['as' => 'profile', 'uses' => 'UserController'])->middleware('auth:api');
