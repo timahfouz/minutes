@@ -20,7 +20,6 @@ class OrderController extends InitController
 
     public function __invoke(OrderRequest $request)
     {
-
         DB::beginTransaction();
         try {
             $userID = getUser()->id;
@@ -35,11 +34,19 @@ class OrderController extends InitController
 
                 if (isset($item['product_id'])) {
                     $product = $this->pipeline->setModel('Product')->find($item['product_id']);
+                    if ($product->in_stock < $item['qty']) {
+                        throw new \Exception("$product->name has only {$product->in_stock} items in stock");
+                    }
+                    $product->decrement('in_stock', $item['qty']);
                     $price = $product->price;
                     $unit = $product->unit;
                 }
                 if (isset($item['offer_id'])) {
                     $offer = $this->pipeline->setModel('Offer')->find($item['offer_id']);
+                    if ($offer->product->in_stock < $item['qty']) {
+                        throw new \Exception("{$offer->product->name} has only {$offer->product->in_stock} items in stock");
+                    }
+                    $offer->product->decrement('in_stock', $item['qty']);
                     $item['product_id'] = $offer->product_id;
                     $price = $offer->new_price;
                     $unit = $offer->new_unit;
@@ -63,7 +70,11 @@ class OrderController extends InitController
                 $orderData['coupon_id'] = $coupon->id;
                 $orderData['coupon_value'] = $coupon->value;
 
-                $orderData['total_cost'] -= $coupon->value;
+                $disc = $coupon->value;
+                if ($orderData['total_cost'] < $disc) {
+                    $disc = $orderData['total_cost'];
+                }
+                $orderData['total_cost'] -= $disc;
             }
             
             
@@ -88,9 +99,8 @@ class OrderController extends InitController
 
             DB::commit();
         } catch (\Exception $ex) {
-
             DB::rollback();
-            dd($ex->getMessage());
+            return jsonResponse(400, $ex->getMessage());
         }
         
         return jsonResponse(201);

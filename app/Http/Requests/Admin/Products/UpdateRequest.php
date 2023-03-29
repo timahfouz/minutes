@@ -28,6 +28,7 @@ class UpdateRequest extends FormRequest
             'price' => 'nullable|numeric|min:1',
             'discount' => 'nullable|numeric|min:0',
             'unit' => 'nullable|min:1',
+            'in_stock' => 'numeric|min:0',
             'category_id' => 'nullable|exists:categories,id',
         ];
     }

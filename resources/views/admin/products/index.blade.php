@@ -47,6 +47,7 @@ Products
                         <th class="">السعر</th>
                         <th class="">الخصم</th>
                         <th class="">الوحدة</th>
+                        <th class="">المخزن</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
@@ -68,6 +69,9 @@ Products
                             </td>
                             <td class="checkbox-column">
                                 <b>{{ $item->unit }}</b>
+                            </td>
+                            <td class="checkbox-column">
+                                <b>{{ $item->in_stock }}</b>
                             </td>
 
                             <td class="text-center">

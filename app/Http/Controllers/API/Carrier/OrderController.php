@@ -62,6 +62,13 @@ class OrderController extends InitController
             return jsonResponse(404, 'not found.'); 
         }
 
+        if ($request->status == 'rejected') {
+            $catItems = $order->catItems();
+            foreach ($catItems as $item) {
+                $item->product->increment('in_stock', $item->qty);
+            }
+        }
+
         $order->update([
             'status' => $request->status,
             'rejection_reason' => $request->rejection_reason,

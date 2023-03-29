@@ -32,12 +32,19 @@
     </div>
 </div>
 
-<div class="form-group mb-4 col-md-6 offset-md-3">
-    <label for="unit"> الفئة:</label>
-    <select type="text" required class="form-control" id="category"name="category_id">
-        @foreach($categories as $category)
-        <option {{(isset($item) ? ($item->category_id == $category->id) ? 'selected' : '' : '')}} value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
-    </select>
-        
+<div class="row">
+    <div class="form-group mb-4 col-md-6">
+        <label for="in_stock"> المخزن:</label>
+        <input type="number" min="0" step="1" required class="form-control @error('in_stock') is-invalid @enderror" id="in_stock"
+            name="in_stock" placeholder="المخزن"  value="{{old('in_stock', (isset($item) ? $item->in_stock : ''))}}">
+    </div>
+
+    <div class="form-group mb-4 col-md-6">
+        <label for="unit"> الفئة:</label>
+        <select type="text" required class="form-control" id="category"name="category_id">
+            @foreach($categories as $category)
+            <option {{(isset($item) ? ($item->category_id == $category->id) ? 'selected' : '' : '')}} value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>   
+    </div>
 </div>
