@@ -30,7 +30,7 @@ class ProductOffersPipeline
                 'color' => '0XFF'.str_replace('#','', $ref->color),
             ];
             
-            $categ['products'] = $builder->selectRaw("offers.product_id, offers.new_price, offers.new_unit, offers.title, p.name, p.in_stock, p.price, ROUND(((p.price - offers.new_price) / p.price) * 100, 1) as discount, CONCAT('$url','/',m.path) as image_path")
+            $categ['products'] = $builder->selectRaw("offers.id, offers.product_id, offers.new_price, offers.new_unit, offers.title, p.name, p.in_stock, p.price, ROUND(((p.price - offers.new_price) / p.price) * 100, 1) as discount, CONCAT('$url','/',m.path) as image_path")
             ->leftJoin('products as p', function($join) {
                 $join->on('p.id','=','offers.product_id');
             })
