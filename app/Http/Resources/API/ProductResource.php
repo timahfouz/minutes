@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
                 'name' => $this->category->name,
             ],
             'unit' => $this->unit,
+            'in_stock' => $this->in_stock,
             'price' => number_format($this->price, 1),
             'discount' => number_format($this->discount, 1),
             'net_price' => number_format(($this->price - ($this->price * ($this->discount / 100))), 1),

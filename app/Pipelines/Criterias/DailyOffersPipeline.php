@@ -13,7 +13,7 @@ class DailyOffersPipeline extends PipelineFactory
     {
         $url = env('APP_URL');
 
-        return $builder->selectRaw("offers.*, p.price, p.name, c.name as category_name, CONCAT('$url','/',m.path) as image_path")
+        return $builder->selectRaw("offers.*, p.price, p.name, p.in_stock, c.name as category_name, CONCAT('$url','/',m.path) as image_path")
         ->leftJoin('products as p', function($join) {
             $join->on('offers.product_id','=','p.id');
         })

@@ -23,6 +23,7 @@ class OfferResource extends JsonResource
             ],
             'title' => $this->title ?? '',
             'unit' => $this->new_unit,
+            'in_stock' => $this->in_stock,
             'old_price' => number_format($this->price, 1),
             'price' => number_format($this->new_price, 1),
             'saving' => number_format($this->price - $this->new_price, 1),
